@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router';
 const axiosSecure = axios.create({
     baseURL: `https://zap-shift-server-psi.vercel.app`
 });
-// ksjdfs
+// ksjdf
 const useAxiosSecure = () => {
     const { user, logOut } = useAuth();
     const navigate = useNavigate();
