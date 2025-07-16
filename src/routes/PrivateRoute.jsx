@@ -1,22 +1,20 @@
-
 import React from 'react';
+import { Navigate, useLocation } from 'react-router-dom'; // ✅ Correct package
 import useAuth from '../hooks/useAuth';
-import { Navigate, useLocation } from 'react-router';
 
 const PrivateRoute = ({ children }) => {
-    const { user, loading } = useAuth();
-    const location = useLocation();
+  const { user, loading } = useAuth();
+  const location = useLocation();
 
+  if (loading) {
+    return <span className="loading loading-spinner loading-xl"></span>;
+  }
 
-    if (loading) {
-        return <span className="loading loading-spinner loading-xl"></span>
-    }
+  if (!user) {
+    return <Navigate to="/login" replace state={{ from: location }} />;
+  }
 
-    if (!user) {
-        return <Navigate state={{ from: location.pathname }} to="/login"></Navigate>
-    }
-
-    return children;
+  return children;
 };
 
 export default PrivateRoute;
