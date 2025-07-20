@@ -1,4 +1,4 @@
-import React, {  useState } from 'react';
+import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import useUserRole from '../../hooks/useUserRole';
@@ -12,13 +12,23 @@ const ContentManagement = () => {
 
   const [filter, setFilter] = useState('all');
 
-  const { data: blogs = [], isLoading } = useQuery({
+  const {
+    data,
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: ['blogs', filter],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/blogs${filter === 'all' ? '' : `?status=${filter}`}`);
-      return res.data;
+      const res = await axiosSecure.get(
+        `/dashboard-blogs${filter === 'all' ? '' : `?status=${filter}`}`
+      );
+      return res.data; // may be array OR object {blogs:[],total,...}
     },
   });
+
+  // Normalize data shape
+  const blogs = Array.isArray(data) ? data : data?.blogs ?? [];
+  const total = Array.isArray(data) ? data.length : data?.total ?? 0;
 
   const deleteMutation = useMutation({
     mutationFn: async (id) => await axiosSecure.delete(`/blogs/${id}`),
@@ -75,43 +85,49 @@ const ContentManagement = () => {
         </select>
       </div>
 
-      {/* Blogs */}
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : (
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {blogs.map((blog) => (
-            <div key={blog._id} className="card bg-base-100 shadow">
-              <figure>
-                <img src={blog.thumbnail} alt={blog.title} className="h-48 w-full object-cover" />
-              </figure>
-              <div className="card-body">
-                <h3 className="card-title">{blog.title}</h3>
-                <p>Status: <span className="badge">{blog.status}</span></p>
+      {/* Loading and Error States */}
+      {isLoading && <div className="flex justify-center items-center h-40">Loading...</div>}
+      {error && <p className="text-red-500 text-center">Failed to load blogs.</p>}
 
-                <div className="flex justify-between mt-4">
-                  {role === 'admin' && (
+      {/* Blogs */}
+      {!isLoading && !error && (
+        blogs.length ? (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {blogs.map((blog) => (
+              <div key={blog._id} className="card bg-base-100 shadow">
+                <figure>
+                  <img src={blog.thumbnail} alt={blog.title} className="h-48 w-full object-cover" />
+                </figure>
+                <div className="card-body">
+                  <h3 className="card-title">{blog.title}</h3>
+                  <p>Status: <span className="badge">{blog.status}</span></p>
+
+                  <div className="flex justify-between mt-4">
                     <button
                       onClick={() => handleStatusToggle(blog._id, blog.status)}
                       className="btn btn-sm btn-outline"
+                      disabled={role !== 'admin'}
+                      title={role !== 'admin' ? 'Only admins can change status' : ''}
                     >
                       {blog.status === 'draft' ? 'Publish' : 'Unpublish'}
                     </button>
-                  )}
 
-                  {role === 'admin' && (
                     <button
                       onClick={() => handleDelete(blog._id)}
                       className="btn btn-sm btn-error"
+                      disabled={role !== 'admin'}
+                      title={role !== 'admin' ? 'Only admins can delete' : ''}
                     >
                       Delete
                     </button>
-                  )}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <p className="text-center text-sm opacity-70">No blogs found. (total={total})</p>
+        )
       )}
     </div>
   );

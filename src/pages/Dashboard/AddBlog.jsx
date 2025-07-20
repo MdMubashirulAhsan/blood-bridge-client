@@ -36,7 +36,7 @@ const AddBlog = () => {
     try {
       const res = await axios.post(cloudinaryUrl, formData);
       setThumbnail(res.data.secure_url);
-      Swal.fire('Success', 'Thumbnail uploaded!', 'success');
+      // Swal.fire('Success', 'Thumbnail uploaded!', 'success');
     } catch (err) {
       console.error('Image upload failed:', err);
       Swal.fire('Upload Error', 'Failed to upload image. Please try again.', 'error');

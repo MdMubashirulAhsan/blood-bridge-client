@@ -5,9 +5,16 @@ import Featured from './Featured';
 import ContactUs from './ContactUs';
 import HowItWorks from './HowItWorks';
 import TopDonors from './TopDonors';
+import { Helmet } from 'react-helmet';
 
 const Home = () => {
     return (
+
+        
+        <>
+        <Helmet>
+            <title>Home | Blood Bridge</title>
+        </Helmet>
         <div className='space-y-20'>
             <div className='-mx-[3vw]'>
                 <Banner></Banner>
@@ -17,6 +24,7 @@ const Home = () => {
             <TopDonors></TopDonors>
             <ContactUs></ContactUs>
         </div>
+        </>
     );
 };
 

@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import useAuth from '../../hooks/useAuth';
 import axios from 'axios';
+import { Helmet } from 'react-helmet';
 // import SocialLogin from '../SocialLogin/SocialLogin';
 
 const Login = () => {
@@ -43,6 +44,13 @@ const Login = () => {
   };
 
   return (
+    <>
+    
+    <Helmet>
+            <title>Login | Blood Bridge</title>
+        </Helmet>
+    
+    
     <div className="hero bg-base-200 min-h-screen">
       <div className="hero-content flex-col lg:flex-row-reverse justify-center">
         <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
@@ -92,6 +100,7 @@ const Login = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

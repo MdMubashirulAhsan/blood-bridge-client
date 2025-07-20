@@ -13,7 +13,7 @@ import Blog from "../pages/Home/Blog";
 import DonationRequestsDetails from "../pages/Home/DonationRequestsDetails";
 import Funding from "../pages/Home/Funding";
 // import SearchPage from "../pages/Home/SearchPage";
-import DonorRoute from "../routes/DonorRoute"
+import DonorRoute from "../routes/DonorRoute";
 // import DonationRequests from "../pages/Home/DonationRequests"
 import MyDonationRequests from "../pages/Dashboard/MyDonationRequests";
 import CreateDonationRequest from "../pages/Dashboard/CreateDonationRequest";
@@ -22,13 +22,14 @@ import AllUsers from "../pages/Dashboard/AllUsers";
 import AllBloodDonationRequest from "../pages/Dashboard/AllBloodDonationRequest";
 import ContentManagement from "../pages/Dashboard/ContentManagement";
 import VolunteerRoute from "../routes/VolunteerRoute";
-import Forbidden from "../pages/Forbidden/Forbidden"
+import Forbidden from "../pages/Forbidden/Forbidden";
 import AddBlog from "../pages/Dashboard/AddBlog";
 import BlogDetails from "../pages/Home/BlogDetails";
 import DonorSearch from "../pages/Home/DonorSearch";
 import ViewDonation from "../pages/Dashboard/ViewDonation";
 import UpdateDonation from "../pages/Dashboard/UpdateDonation";
-
+import GiveFund from "../pages/Home/GiveFund";
+import RoleBasedRoute from "../hooks/RoleBasedRoute";
 
 export const router = createBrowserRouter([
   {
@@ -76,6 +77,14 @@ export const router = createBrowserRouter([
         path: "/donor-search",
         Component: DonorSearch,
       },
+      {
+        path: "/give-fund",
+        element: (
+          <PrivateRoute>
+            <GiveFund></GiveFund>
+          </PrivateRoute>
+        ),
+      },
     ],
   },
   {
@@ -106,25 +115,86 @@ export const router = createBrowserRouter([
       },
       { path: "/dashboard/profile", Component: DashboardProfile },
       // donor route
-      
-      // { path: "/dashboard", element: <DonorRoute><DashboardHome></DashboardHome></DonorRoute> },
-      { path: "/dashboard/my-donation-requests", element: <DonorRoute><MyDonationRequests></MyDonationRequests></DonorRoute> },
-      { path: "/dashboard/donation-requests/view/:id", element: <DonorRoute><ViewDonation></ViewDonation></DonorRoute> },
-      { path: "dashboard/donation-requests/update/:id", element: <DonorRoute><UpdateDonation></UpdateDonation></DonorRoute> },
 
-      { path: "/dashboard/create-donation-request", element: <DonorRoute><CreateDonationRequest></CreateDonationRequest></DonorRoute> },
-    
-    
+      // { path: "/dashboard", element: <DonorRoute><DashboardHome></DashboardHome></DonorRoute> },
+      {
+        path: "/dashboard/my-donation-requests",
+        element: (
+          <DonorRoute>
+            <MyDonationRequests></MyDonationRequests>
+          </DonorRoute>
+        ),
+      },
+      {
+        path: "/dashboard/donation-requests/view/:id",
+        element: (
+          <RoleBasedRoute allowedRoles={["admin", "volunteer", "donor"]}>
+            <ViewDonation></ViewDonation>
+          </RoleBasedRoute>
+        ),
+      },
+      
+
+      {
+        path: "/dashboard/create-donation-request",
+        element: (
+          <DonorRoute>
+            <CreateDonationRequest></CreateDonationRequest>
+          </DonorRoute>
+        ),
+      },
+
       // admin route
-      {path: "/dashboard/all-users", element: <AdminRoute><AllUsers></AllUsers></AdminRoute>},
-      {path: "/dashboard/all-blood-donation-request", element: <AdminRoute><AllBloodDonationRequest></AllBloodDonationRequest></AdminRoute>},
-      {path: "/dashboard/content-management", element: <AdminRoute><ContentManagement></ContentManagement></AdminRoute>},
-      {path: "/dashboard/content-management/add-blog", element: <AdminRoute><AddBlog></AddBlog></AdminRoute>},
+      {
+        path: "/dashboard/all-users",
+        element: (
+          <AdminRoute>
+            <AllUsers></AllUsers>
+          </AdminRoute>
+        ),
+      },
+      // {path: "/dashboard/all-blood-donation-request", element: <AdminRoute><AllBloodDonationRequest></AllBloodDonationRequest></AdminRoute>},
       // volunteer route
       // {path: "/dashboard/all-users", element: <AdminRoute><AllUsers></AllUsers></AdminRoute>},
-      {path: "/dashboard/all-blood-donation-request", element: <VolunteerRoute><AllBloodDonationRequest></AllBloodDonationRequest></VolunteerRoute>},
-      {path: "/dashboard/content-management", element: <VolunteerRoute><ContentManagement></ContentManagement></VolunteerRoute>},
+      // {path: "/dashboard/all-blood-donation-request", element: <VolunteerRoute><AllBloodDonationRequest></AllBloodDonationRequest></VolunteerRoute>},
+      // {path: "/dashboard/content-management", element: <VolunteerRoute><ContentManagement></ContentManagement></VolunteerRoute>},
+      // {path: "/dashboard/content-management/add-blog", element: <VolunteerRoute><AddBlog></AddBlog></VolunteerRoute>},
+
+      {
+        path: "/dashboard/all-blood-donation-request",
+        element: (
+          <RoleBasedRoute allowedRoles={["admin", "volunteer"]}>
+            <AllBloodDonationRequest />
+          </RoleBasedRoute>
+        ),
+      },
+
+      {
+        path: "/dashboard/content-management",
+        element: (
+          <RoleBasedRoute allowedRoles={["admin", "volunteer"]}>
+            <ContentManagement />
+          </RoleBasedRoute>
+        ),
+      },
+
+      {
+        path: "/dashboard/content-management/add-blog",
+        element: (
+          <RoleBasedRoute allowedRoles={["admin", "volunteer"]}>
+            <AddBlog />
+          </RoleBasedRoute>
+        ),
+      },
+      {
+        path: "/dashboard/donation-requests/update/:id",
+        element: (
+          <RoleBasedRoute allowedRoles={["admin", "volunteer", "donor"]}>
+            <UpdateDonation></UpdateDonation>
+          </RoleBasedRoute>
+        ),
+      },
     ],
   },
 ]);
-// ksjdlkamdc.,
+// ksjdlkamdc.

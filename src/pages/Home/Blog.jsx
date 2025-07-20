@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import useBlogs from '../../hooks/useBlogs';
+import { Helmet } from 'react-helmet';
 
 const Blog = () => {
   const { data: blogs = [], isLoading } = useBlogs();
@@ -13,13 +14,16 @@ const Blog = () => {
   if (isLoading) return <div className="text-center mt-10">Loading blogs...</div>;
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-10">
+    <>
+    <title>Blogs | My App</title>
+    
+    <div className=" mx-auto  py-10">
       <h1 className="text-3xl font-bold mb-6">Published Blogs</h1>
 
       <input
         type="text"
         placeholder="Search by title..."
-        className="input input-bordered w-full mb-6"
+        className="input input-bordered w-40 mb-6"
         value={searchTerm}
         onChange={e => setSearchTerm(e.target.value)}
       />
@@ -27,7 +31,7 @@ const Blog = () => {
       {filteredBlogs.length === 0 ? (
         <p>No blogs found.</p>
       ) : (
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid gap-6 md:grid-cols-4">
           {filteredBlogs.map(blog => (
             <div key={blog._id} className="border p-4 rounded-lg shadow bg-base-100">
               <h2 className="text-xl font-semibold">{blog.title}</h2>
@@ -43,6 +47,7 @@ const Blog = () => {
         </div>
       )}
     </div>
+    </>
   );
 };
 

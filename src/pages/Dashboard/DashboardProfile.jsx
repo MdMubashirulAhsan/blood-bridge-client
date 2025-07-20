@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import districts from '../../assets/districts.json';
 import upazilas from '../../assets/upazilas.json';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
+import { Helmet } from 'react-helmet';
 
 const DashboardProfile = () => {
   const axiosSecure = useAxiosSecure();
@@ -86,6 +87,11 @@ const DashboardProfile = () => {
   if (isError) return <div className="text-center text-red-500">Failed to load profile.</div>;
 
   return (
+    <>
+    <Helmet>
+            <title>Profile | Blood Bridge</title>
+        </Helmet>
+    
     <div className="max-w-2xl mx-auto bg-base-100 p-6 rounded-lg shadow">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-2xl font-bold">My Profile</h2>
@@ -179,6 +185,7 @@ const DashboardProfile = () => {
         )}
       </form>
     </div>
+    </>
   );
 };
 

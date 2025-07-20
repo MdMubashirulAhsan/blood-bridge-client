@@ -4,6 +4,7 @@ import useAxiosSecure from '../../hooks/useAxiosSecure';
 import useAuth from '../../hooks/useAuth';
 import { useState } from 'react';
 import DonationModal from '../../pages/Home/DonationModal';
+import { Helmet } from 'react-helmet';
 
 const DonationRequestDetails = () => {
   const { id } = useParams();
@@ -22,14 +23,23 @@ const DonationRequestDetails = () => {
   if (isLoading) return <p>Loading...</p>;
 
   return (
-    <div className="max-w-3xl mx-auto p-6">
+    <>
+    <Helmet>
+            <title>Donation Requests | Blood Bridge</title>
+        </Helmet>
+    
+    
+    <div className=" mx-auto py-10">
       <h2 className="text-3xl font-bold mb-4">Donation Request Details</h2>
       <p><strong>Recipient:</strong> {request.recipientName}</p>
-      <p><strong>Location:</strong> {request.location}</p>
+      <p><strong>District:</strong> {request.recipientDistrict}</p>
+      <p><strong>Upazila:</strong> {request.recipientUpazila}</p>
       <p><strong>Blood Group:</strong> {request.bloodGroup}</p>
-      <p><strong>Date:</strong> {request.date}</p>
-      <p><strong>Time:</strong> {request.time}</p>
-      <p><strong>Additional Info:</strong> {request.additionalInfo || 'N/A'}</p>
+      <p><strong>Hospital Name:</strong> {request.hospitalName}</p>
+      <p><strong>Full Address:</strong> {request.fullAddress}</p>
+      <p><strong>Donation Date:</strong> {request.donationDate}</p>
+      <p><strong>Donation Time:</strong> {request.donationTime}</p>
+      <p><strong>Request Message:</strong> {request.requestMessage}</p>
 
       <button onClick={() => setShowModal(true)} className="btn btn-accent mt-5">
         Donate Now
@@ -43,6 +53,7 @@ const DonationRequestDetails = () => {
         />
       )}
     </div>
+    </>
   );
 };
 

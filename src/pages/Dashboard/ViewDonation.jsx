@@ -3,8 +3,15 @@ import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
+import useUserRole from '../../hooks/useUserRole';
 
 const ViewDonation = () => {
+  const { role } = useUserRole();
+
+  const linkPath =
+    role === "donor"
+      ? "/dashboard/my-donation-requests"
+      : "/dashboard/all-blood-donation-request";
   const { id } = useParams();
   const axiosSecure = useAxiosSecure();
 
@@ -51,7 +58,7 @@ const ViewDonation = () => {
       </div>
 
       <div className="mt-6 flex gap-3">
-        <Link to="/dashboard/my-donation-requests" className="btn btn-outline">
+        <Link to={linkPath} className="btn btn-outline">
           Back to My Requests
         </Link>
       </div>

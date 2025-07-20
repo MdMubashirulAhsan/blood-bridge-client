@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import useAxios from "../../hooks/useAxios";
 import districts from "../../assets/districts.json";
 import upazilaData from "../../assets/upazilas.json";
+import { Helmet } from 'react-helmet';
 
 const bloodGroups = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
 
@@ -94,6 +95,10 @@ const Register = () => {
 
 
   return (
+    <>
+    <Helmet>
+            <title>Register | Blood Bridge</title>
+        </Helmet>
     <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
       <div className="card-body">
         <h1 className="text-4xl font-bold text-center">Create Account</h1>
@@ -204,6 +209,7 @@ const Register = () => {
         </form>
       </div>
     </div>
+    </>
   );
 };
 

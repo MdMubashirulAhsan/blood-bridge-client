@@ -4,14 +4,15 @@ import { useQuery } from '@tanstack/react-query';
 import districts from '../../assets/districts.json';
 import upazilasByDistrict from '../../assets/upazilas.json';
 import useAxios from '../../hooks/useAxios';
+import { Helmet } from 'react-helmet';
 
-const bloodGroups = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
+const blood_group = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
 
 const DonorSearch = () => {
   const axios = useAxios();
 
   const [form, setForm] = useState({
-    bloodGroup: '',
+    blood_group: '',
     district: '',
     upazila: ''
   });
@@ -49,19 +50,25 @@ const DonorSearch = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-10">
+    <>
+    
+    <Helmet>
+            <title>Search Donor | Blood Bridge</title>
+        </Helmet>
+    
+    <div className=" mx-auto  py-10">
       <h1 className="text-3xl font-bold mb-6">Search Donors</h1>
 
       <form onSubmit={handleSearch} className="grid gap-4 md:grid-cols-3 mb-8">
         <select
-          name="bloodGroup"
-          value={form.bloodGroup}
+          name="blood_group"
+          value={form.blood_group}
           onChange={handleChange}
           className="select select-bordered"
           required
         >
           <option value="" disabled>Select Blood Group</option>
-          {bloodGroups.map(bg => (
+          {blood_group.map(bg => (
             <option key={bg} value={bg}>{bg}</option>
           ))}
         </select>
@@ -115,10 +122,11 @@ const DonorSearch = () => {
                   key={donor._id}
                   className="p-4 border rounded shadow bg-base-100"
                 >
+                  <img src={donor.avatar} alt="Donor Photo" className='w-50 h-50'/>
                   <h3 className="text-xl font-semibold">{donor.name}</h3>
                   <p>Email: {donor.email}</p>
                   <p>
-                    Blood Group: <strong>{donor.bloodGroup}</strong>
+                    Blood Group: <strong>{donor.blood_group}</strong>
                   </p>
                   <p>
                     District: {donor.district} | Upazila: {donor.upazila}
@@ -129,7 +137,7 @@ const DonorSearch = () => {
           )}
         </>
       )}
-    </div>
+    </div></>
   );
 };
 

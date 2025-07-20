@@ -1,17 +1,17 @@
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
-// import axios from 'axios';
 import useAxios from '../../hooks/useAxios';
 
 const DonationRequests = () => {
   const axios = useAxios();
+
   const { data: response = {}, isLoading, isError, error } = useQuery({
     queryKey: ['publicDonationRequests'],
     queryFn: async () => {
       try {
         const res = await axios.get('/public-donation-requests', {
           params: {
-            status: 'pending',
+            donationStatus: 'pending', // filter only pending
             page: 0,
             size: 100,
           },
@@ -26,6 +26,7 @@ const DonationRequests = () => {
   });
 
   const requests = response.data || [];
+  const total = response.total || 0;
 
   if (isLoading) return <p className="text-center py-10">Loading donation requests...</p>;
 
@@ -40,17 +41,19 @@ const DonationRequests = () => {
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-10">
+    <div className=" mx-auto  py-10">
       <h2 className="text-3xl font-bold mb-6">Pending Blood Donation Requests</h2>
 
       {requests.length === 0 ? (
-        <p className="text-center text-gray-500">No pending requests found.</p>
+        <p className="text-center text-gray-500">
+          No pending requests found {`(total=${total})`}.
+        </p>
       ) : (
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-4 gap-6">
           {requests.map((req) => (
             <div key={req._id} className="p-4 border rounded-lg shadow bg-base-100">
               <h3 className="text-xl font-semibold mb-1">Recipient: {req.recipientName}</h3>
-              <p>Location: {req.recipientDistrict || 'N/A'}, {req.recipientUpazila || 'N/A'}</p>
+              <p>Location: {req.recipientUpazila || 'N/A'}, {req.recipientDistrict || 'N/A'}</p>
               <p>
                 Blood Group: <strong>{req.bloodGroup}</strong>
               </p>
@@ -58,7 +61,7 @@ const DonationRequests = () => {
                 Date: {req.donationDate || 'N/A'} | Time: {req.donationTime || 'N/A'}
               </p>
               <Link
-                to={`/donation-request/${req._id}`}
+                to={`/donation-requests/${req._id}`}
                 className="btn btn-primary btn-sm mt-3"
               >
                 View Details
