@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import useUserRole from '../../hooks/useUserRole';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
+import { Helmet } from 'react-helmet';
 
 const ContentManagement = () => {
   const axiosSecure = useAxiosSecure();
@@ -64,6 +65,14 @@ const ContentManagement = () => {
   };
 
   return (
+    <>
+    
+    <Helmet>
+      <title>Contents | Blood Bridge</title>
+    </Helmet>
+    
+    
+    
     <div className="p-6">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-2xl font-bold">Content Management</h2>
@@ -130,6 +139,7 @@ const ContentManagement = () => {
         )
       )}
     </div>
+    </>
   );
 };
 

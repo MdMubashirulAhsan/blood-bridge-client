@@ -29,10 +29,10 @@ const DonorSearch = () => {
       });
 
       const params = new URLSearchParams(filteredQuery).toString();
-      console.log('📦 Sent query params:', params);
+      // console.log('📦 Sent query params:', params);
 
       const res = await axios.get(`/donors?${params}`);
-      console.log('📥 Received donors:', res.data);
+      // console.log('📥 Received donors:', res.data);
 
       return res.data;
     },

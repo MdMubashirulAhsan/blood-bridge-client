@@ -1,8 +1,15 @@
+import { Helmet } from "react-helmet";
 import { FaLock } from "react-icons/fa";
 import { Link } from "react-router-dom"; // ✅ Fixed import
 
 const Forbidden = () => {
   return (
+    <>
+    <Helmet>
+      <title>Forbidden | Blood Bridge</title>
+    </Helmet>
+    
+    
     <div className="min-h-screen flex flex-col items-center justify-center bg-base-200 text-center px-4">
       <FaLock className="text-6xl text-error mb-4" />
       <h1 className="text-4xl font-bold text-error">403 - Forbidden</h1>
@@ -14,6 +21,7 @@ const Forbidden = () => {
         <button className="btn btn-primary text-black">Go to Home</button>
       </Link>
     </div>
+    </>
   );
 };
 

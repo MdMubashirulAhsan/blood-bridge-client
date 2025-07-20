@@ -4,6 +4,7 @@ import { useParams, Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import useUserRole from '../../hooks/useUserRole';
+import { Helmet } from 'react-helmet';
 
 const ViewDonation = () => {
   const { role } = useUserRole();
@@ -41,6 +42,11 @@ const ViewDonation = () => {
   } = request;
 
   return (
+    <>
+    <Helmet>
+      <title>View Donation | Blood Bridge</title>
+    </Helmet>
+
     <div className="p-6 max-w-3xl mx-auto bg-base-100 shadow rounded-lg">
       <h2 className="text-2xl font-semibold mb-4">Donation Request Details</h2>
 
@@ -63,6 +69,7 @@ const ViewDonation = () => {
         </Link>
       </div>
     </div>
+    </>
   );
 };
 

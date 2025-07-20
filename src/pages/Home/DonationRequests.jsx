@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import useAxios from '../../hooks/useAxios';
+import { Helmet } from 'react-helmet';
 
 const DonationRequests = () => {
   const axios = useAxios();
@@ -16,7 +17,7 @@ const DonationRequests = () => {
             size: 100,
           },
         });
-        console.log("✅ Public donation data:", res.data);
+        // console.log("✅ Public donation data:", res.data);
         return res.data; // { total, data: [...] }
       } catch (err) {
         console.error("❌ Failed to fetch donation requests:", err.response?.data || err.message);
@@ -41,6 +42,13 @@ const DonationRequests = () => {
   }
 
   return (
+    <>
+    <Helmet>
+      <title>Donation Requests | Blood Bridge</title>
+    </Helmet>
+    
+    
+    
     <div className=" mx-auto  py-10">
       <h2 className="text-3xl font-bold mb-6">Pending Blood Donation Requests</h2>
 
@@ -71,6 +79,7 @@ const DonationRequests = () => {
         </div>
       )}
     </div>
+    </>
   );
 };
 

@@ -4,6 +4,7 @@ import JoditEditor from 'jodit-react';
 import Swal from 'sweetalert2';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import axios from 'axios'; // You need axios here for cloudinary upload
+import { Helmet } from 'react-helmet';
 
 const AddBlog = () => {
   const axiosSecure = useAxiosSecure();
@@ -77,6 +78,11 @@ const AddBlog = () => {
   };
 
   return (
+    <>
+    <Helmet>
+      <title>Add Blog | Blood Bridge</title>
+    </Helmet>
+    
     <div className="max-w-4xl mx-auto p-6">
       <h1 className="text-3xl font-bold mb-6">Add New Blog</h1>
 
@@ -140,6 +146,7 @@ const AddBlog = () => {
         </div>
       </form>
     </div>
+    </>
   );
 };
 

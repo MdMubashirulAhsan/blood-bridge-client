@@ -3,6 +3,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import useUserRole from '../../hooks/useUserRole';
 import Swal from 'sweetalert2';
+import { Helmet } from 'react-helmet';
 
 const statusOptions = ['all', 'active', 'blocked'];
 
@@ -64,6 +65,12 @@ const AllUsers = () => {
   if (error) return <p className="text-center text-red-500">Failed to load users.</p>;
 
   return (
+    <>
+    <Helmet>
+      <title>All Users | Blood Bridge</title>
+    </Helmet>
+    
+    
     <div className="p-4">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-2xl font-semibold">All Users</h2>
@@ -179,6 +186,7 @@ const AllUsers = () => {
         </select>
       </div>
     </div>
+    </>
   );
 };
 

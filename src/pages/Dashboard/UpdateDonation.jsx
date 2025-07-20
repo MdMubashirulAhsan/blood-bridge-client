@@ -7,6 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useParams, useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
+import { Helmet } from 'react-helmet';
 
 const bloodGroups = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
 
@@ -105,6 +106,13 @@ const UpdateDonation = () => {
   }
 
   return (
+
+
+    <>
+    <Helmet>
+      <title>Update Donation | Blood Bridge</title>
+    </Helmet>
+    
     <form onSubmit={handleSubmit(onSubmit)} className="max-w-xl mx-auto p-6 bg-base-100 rounded-lg shadow space-y-4">
       <h2 className="text-2xl font-bold mb-4">Update Donation Request</h2>
 
@@ -248,6 +256,7 @@ const UpdateDonation = () => {
         {loading ? 'Updating...' : 'Update Request'}
       </button>
     </form>
+    </>
   );
 };
 

@@ -15,7 +15,10 @@ const Blog = () => {
 
   return (
     <>
-    <title>Blogs | My App</title>
+    <Helmet>
+      <title>Blogs | My App</title>
+    </Helmet>
+    
     
     <div className=" mx-auto  py-10">
       <h1 className="text-3xl font-bold mb-6">Published Blogs</h1>

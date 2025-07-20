@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { useQuery } from '@tanstack/react-query';
 import useAuth from '../../hooks/useAuth';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
+import { Helmet } from 'react-helmet';
 
 const bloodGroups = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
 
@@ -98,6 +99,12 @@ const CreateDonationRequest = () => {
   }
 
   return (
+    <>
+    
+    <Helmet>
+      <title>Create Donation Request | Blood Bridge</title>
+    </Helmet>
+    
     <form onSubmit={handleSubmit(onSubmit)} className="max-w-xl mx-auto p-6 bg-base-100 rounded-lg shadow space-y-4">
       <h2 className="text-2xl font-bold mb-4">Create Donation Request</h2>
 
@@ -241,6 +248,7 @@ const CreateDonationRequest = () => {
         {loading ? 'Submitting...' : 'Request'}
       </button>
     </form>
+    </>
   );
 };
 

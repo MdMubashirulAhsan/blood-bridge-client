@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import useAuth from '../../hooks/useAuth';
+import { Helmet } from 'react-helmet';
 
 const statusOptions = ['all', 'pending', 'inprogress', 'done', 'canceled'];
 
@@ -56,6 +57,12 @@ const MyDonationRequests = () => {
   if (isLoading) return <p className="p-4">Loading donation requests...</p>;
 
   return (
+    <>
+    <Helmet>
+      <title>My Donation Requests | Blood Bridge</title>
+    </Helmet>
+    
+    
     <div className="p-4">
       <h2 className="text-2xl font-bold mb-4">My Donation Requests</h2>
 
@@ -167,6 +174,7 @@ const MyDonationRequests = () => {
         </select>
       </div>
     </div>
+    </>
   );
 };
 
