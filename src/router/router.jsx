@@ -12,9 +12,7 @@ import DonationRequests from "../pages/Home/DonationRequests";
 import Blog from "../pages/Home/Blog";
 import DonationRequestsDetails from "../pages/Home/DonationRequestsDetails";
 import Funding from "../pages/Home/Funding";
-// import SearchPage from "../pages/Home/SearchPage";
 import DonorRoute from "../routes/DonorRoute";
-// import DonationRequests from "../pages/Home/DonationRequests"
 import MyDonationRequests from "../pages/Dashboard/MyDonationRequests";
 import CreateDonationRequest from "../pages/Dashboard/CreateDonationRequest";
 import AdminRoute from "../routes/AdminRoute";
@@ -114,9 +112,6 @@ export const router = createBrowserRouter([
         Component: DashboardHome,
       },
       { path: "/dashboard/profile", Component: DashboardProfile },
-      // donor route
-
-      // { path: "/dashboard", element: <DonorRoute><DashboardHome></DashboardHome></DonorRoute> },
       {
         path: "/dashboard/my-donation-requests",
         element: (
@@ -153,13 +148,6 @@ export const router = createBrowserRouter([
           </AdminRoute>
         ),
       },
-      // {path: "/dashboard/all-blood-donation-request", element: <AdminRoute><AllBloodDonationRequest></AllBloodDonationRequest></AdminRoute>},
-      // volunteer route
-      // {path: "/dashboard/all-users", element: <AdminRoute><AllUsers></AllUsers></AdminRoute>},
-      // {path: "/dashboard/all-blood-donation-request", element: <VolunteerRoute><AllBloodDonationRequest></AllBloodDonationRequest></VolunteerRoute>},
-      // {path: "/dashboard/content-management", element: <VolunteerRoute><ContentManagement></ContentManagement></VolunteerRoute>},
-      // {path: "/dashboard/content-management/add-blog", element: <VolunteerRoute><AddBlog></AddBlog></VolunteerRoute>},
-
       {
         path: "/dashboard/all-blood-donation-request",
         element: (
@@ -197,4 +185,4 @@ export const router = createBrowserRouter([
     ],
   },
 ]);
-// ksjdlkamdc.
+// ksjdlkamdc.kjsdkj
